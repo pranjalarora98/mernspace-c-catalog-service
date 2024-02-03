@@ -33,7 +33,7 @@ export const globalErrorHandler = (
                 msg: message,
                 path: req.path,
                 location: "server",
-                stack: isProduction ? undefined : err.stack,
+                stack: isProduction ? null : err.stack,
             },
         ],
     });
