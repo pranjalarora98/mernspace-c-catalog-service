@@ -6,15 +6,15 @@ export class S3Storage implements FileStorage {
     
     private client: S3Client;
 
-    constructor(){
-        this.client = new S3Client({
-            region:'eu-north-1',
-            credentials:{
-                accessKeyId:'AKIAQKPILVHXR4WG2HPX',
-                secretAccessKey:'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'
-            }
-        })
-    }
+    // constructor(){
+    //     this.client = new S3Client({
+    //         region:'eu-north-1',
+    //         credentials:{
+    //             accessKeyId:'AKIAQKPILVHXR4WG2HPX',
+    //             secretAccessKey:'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'
+    //         }
+    //     })
+    // }
 
 
 
@@ -40,7 +40,7 @@ export class S3Storage implements FileStorage {
         }
         await this.client.send(new DeleteBucketCommand(params));
     }
-    
+
     getObjectUri(fileName: string): string {
         throw new Error("Method not implemented.");
     }
