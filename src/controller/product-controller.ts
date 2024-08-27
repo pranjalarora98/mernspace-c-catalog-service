@@ -6,14 +6,18 @@ import { Filter } from "./product-types";
 import mongoose from "mongoose";
 import { FileStorage } from "../FileStorage";
 import { UploadedFile } from "express-fileupload";
+import KafkaProducerBroker from "../config/kafkaInterface";
 
 export class ProductController {
     
     productService;
     storage;
-    constructor(productService:ProductService,storage:FileStorage){
+    kafkaProducer;
+
+    constructor(productService:ProductService,storage:FileStorage,kafkaProducer:KafkaProducerBroker){
         this.productService = productService;
         this.storage = storage;
+        this.kafkaProducer=kafkaProducer;
     }
 
     async create(req:Request,res:Response){
@@ -25,7 +29,8 @@ export class ProductController {
             fileData:image.data.buffer
           })
 
-          const newProduct = this.productService.create({...req.body,imageName} as ProductTypes);
+          const newProduct =await this.productService.create({...req.body,imageName} as ProductTypes);
+          await this.kafkaProducer.sendMessage('product',JSON.stringify({id:newProduct.id,priceConfiguration: newProduct.priceConfiguration}));
           res.status(200).json({newProduct});
     }
 

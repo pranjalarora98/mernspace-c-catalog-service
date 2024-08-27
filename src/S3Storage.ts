@@ -11,6 +11,7 @@ export class S3Storage implements FileStorage {
             region:'eu-north-1',
             credentials:{
                 accessKeyId:'AKIAQKPILVHXR4WG2HPX',
+                secretAccessKey:'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'
             }
         })
     }

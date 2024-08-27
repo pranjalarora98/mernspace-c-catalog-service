@@ -14,8 +14,8 @@ export class ProductService {
         return updatedProduct
   }
 
-  async getImageById(productId) {
-    const product = productSchema.findById(productId);
+  async getImageById(productId: string) {
+    const product = await productSchema.findById(productId);
     return product.imageName as string;
   }
 
